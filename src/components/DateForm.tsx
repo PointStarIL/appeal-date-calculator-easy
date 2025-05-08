@@ -146,6 +146,7 @@ export function DateForm({ onCalculate }: DateFormProps) {
                         <SelectItem value="court">בית משפט</SelectItem>
                         <SelectItem value="tribunal">בית דין</SelectItem>
                         <SelectItem value="committee">ועדת ערר</SelectItem>
+                        <SelectItem value="localCommittee">ועדה מקומית</SelectItem>
                       </SelectContent>
                     </Select>
                   </FormItem>

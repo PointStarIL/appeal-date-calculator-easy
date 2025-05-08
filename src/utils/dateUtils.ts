@@ -54,6 +54,9 @@ export function calculateAppealDeadline(
     } else if (institutionType === "committee") {
       daysCount = 30;
       explanation = "30 ימים להגשת ערעור על החלטת ועדת ערר";
+    } else if (institutionType === "localCommittee") {
+      daysCount = 30;
+      explanation = "30 ימים להגשת ערעור על החלטת ועדה מקומית";
     } else {
       daysCount = 30;
       explanation = "30 ימים להגשת ערעור";
@@ -61,8 +64,16 @@ export function calculateAppealDeadline(
   } else if (proceedingType === "review") {
     daysCount = 15;
     explanation = "15 ימים להגשת בקשה לעיון מחדש";
+  } else if (proceedingType === "objection") {
+    if (institutionType === "localCommittee") {
+      daysCount = 45;
+      explanation = "45 ימים להגשת ערר על החלטת ועדה מקומית";
+    } else {
+      daysCount = 30;
+      explanation = "30 ימים להגשת ערר";
+    }
   } else {
-    // Default for "objection" and others
+    // Default
     daysCount = 30;
     explanation = "30 ימים להגשת ערר";
   }
