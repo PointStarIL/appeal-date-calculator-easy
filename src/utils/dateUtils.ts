@@ -45,7 +45,6 @@ export function calculateAppealDeadline(
   let explanation = "";
   let adjustedForHoliday = false;
   let adjustedForWeekend = false;
-  let shouldCountWeekends = true; // By default, weekends are counted
   
   // Determine days count based on proceeding and institution type
   if (proceedingType === "appeal") {
@@ -58,7 +57,6 @@ export function calculateAppealDeadline(
     } else if (institutionType === "localCommittee") {
       daysCount = 30;
       explanation = "30 ימים להגשת ערעור על החלטת ועדה מקומית";
-      shouldCountWeekends = false; // Don't count weekends for local committee appeals
     } else {
       daysCount = 30;
       explanation = "30 ימים להגשת ערעור";
@@ -70,7 +68,6 @@ export function calculateAppealDeadline(
     if (institutionType === "localCommittee") {
       daysCount = 45;
       explanation = "45 ימים להגשת ערר על החלטת ועדה מקומית";
-      shouldCountWeekends = false; // Don't count weekends for local committee objections
     } else {
       daysCount = 30;
       explanation = "30 ימים להגשת ערר";
@@ -78,7 +75,6 @@ export function calculateAppealDeadline(
   } else if (proceedingType === "bettermentLevy") {
     daysCount = 45;
     explanation = "45 ימים להגשת ערר על שומת היטל השבחה";
-    shouldCountWeekends = false; // Don't count weekends for betterment levy appeals
   } else {
     // Default
     daysCount = 30;
@@ -90,22 +86,16 @@ export function calculateAppealDeadline(
   let actualDaysCount = 0;
   let countedDays = 0;
   
-  // Continue adding days until we reach the required number of valid days
+  // Continue adding days until we reach the required number of days
   while (countedDays < daysCount) {
     currentDate = addDays(currentDate, 1);
     actualDaysCount++;
     
-    // Determine if we should count this day
-    const isFriday = currentDate.getDay() === 5; // Friday is day 5
-    const isSaturday = currentDate.getDay() === 6; // Saturday is day 6
+    // Only holidays are not counted, but weekends are counted for all proceedings
     const isHolidayDay = isHoliday(currentDate);
     
-    // For regular proceedings (courts), we count weekends but not holidays
-    // For local committee decisions and betterment levy, don't count weekends or holidays
-    if (shouldCountWeekends || (!isFriday && !isSaturday)) {
-      if (!isHolidayDay) {
-        countedDays++;
-      }
+    if (!isHolidayDay) {
+      countedDays++;
     }
   }
 
