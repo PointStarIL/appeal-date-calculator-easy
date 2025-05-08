@@ -124,6 +124,7 @@ export function DateForm({ onCalculate }: DateFormProps) {
                         <SelectItem value="objection">ערר</SelectItem>
                         <SelectItem value="appeal">ערעור</SelectItem>
                         <SelectItem value="review">בקשה לעיון מחדש</SelectItem>
+                        <SelectItem value="bettermentLevy">ערר על שומה של היטל השבחה</SelectItem>
                       </SelectContent>
                     </Select>
                   </FormItem>

@@ -72,6 +72,9 @@ export function calculateAppealDeadline(
       daysCount = 30;
       explanation = "30 ימים להגשת ערר";
     }
+  } else if (proceedingType === "bettermentLevy") {
+    daysCount = 45;
+    explanation = "45 ימים להגשת ערר על שומת היטל השבחה";
   } else {
     // Default
     daysCount = 30;
